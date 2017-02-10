@@ -1,0 +1,5 @@
+# Keep your env secret.
+.env
+prestashop
+mysql
+*.sublime-*

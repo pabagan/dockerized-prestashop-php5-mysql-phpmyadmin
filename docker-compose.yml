@@ -1,0 +1,30 @@
+version: '2'
+services:
+  web:
+    build: .
+    container_name: ${APP_NAME}
+    env_file: .env
+    volumes:
+      - ./${APP_NAME}:/var/www/html
+    ports:
+      - "8080:80"
+    links:
+      - mysql
+
+  # mysql
+  mysql:
+    image: mysql
+    volumes:
+      - ${PERSISTENT_DB}:/var/lib/mysql
+    env_file: .env
+
+  # phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "phpmyadmin"
+    ports:
+      - 8888:80
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
